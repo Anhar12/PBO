@@ -1,7 +1,7 @@
 public class Pesanan {
     // deklarasi field
-    int jumlahTopUP, Total;
-    String Game, ID, Nickname, Waktu, mataUang;
+    private int jumlahTopUP, Total;
+    private String Game, ID, Nickname, Waktu, mataUang;
 
     // constructor buat nambah data
     Pesanan (int jumlah_TopUP, int total, String game, String id, String nickname, String waktu, String mata_uang){
