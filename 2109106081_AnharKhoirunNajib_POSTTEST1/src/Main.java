@@ -48,6 +48,16 @@ public class Main {
     // disini emg gaada getch kah? sementara pake ini jdi pengganti getch
     static public String gtc;
 
+    // cek ada game yang sama atau 
+    static boolean cek_game(String game){
+        for (int i = 0 ; i < dataGame.size() ; i++){
+            if (dataGame.get(i).get_game().equals(game)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     // buat menu yang admin
     static private void admin() throws IOException{
         boolean menu = true;
@@ -73,27 +83,34 @@ public class Main {
                     System.out.println("===================================================");
                     System.out.println("     >>  Tambah Data Jenis Game Udin.TopUp  <<     ");
                     System.out.println("===================================================");
-                    System.out.print("Masukkan Nama Game             : "); String game = br.readLine();
-                    System.out.print("Masukkan Mata Uang Game        : "); String mataUang = br.readLine();
-                    while (loop){
-                        System.out.print("Masukkan Jumlah Variasi Top UP : "); int jenis_topup = Integer.parseInt(br.readLine());
-                        System.out.print("Masukkan Harga Variasi Top UP  : Rp"); int harga_topup = Integer.parseInt(br.readLine());
-                        jenis.add(jenis_topup);
-                        jenis.add(harga_topup);
-                        while (true){
-                            System.out.print("\nTambah Variasi Top Up Lagi [Y/N] ? "); String ulang = br.readLine();
-                            if (ulang.equalsIgnoreCase("n") || ulang.equalsIgnoreCase("N")){
-                                ListGame game_baru = new ListGame(game, mataUang, jenis);
-                                dataGame.add(game_baru);
-                                System.out.print("\nData Berhasil Ditambahkan! Tekan ENTER Untuk Melanjutkan..."); gtc = br.readLine();
-                                loop = false;
-                                break;
-                            } else if (ulang.equalsIgnoreCase("y") || ulang.equalsIgnoreCase("Y")){
-                                System.out.println("");
-                                break;
-                            } else {
-                                System.out.println("\nInput Anda Salah! Silahkan Input Ulang");
+                    while (true){
+                        System.out.print("Masukkan Nama Game             : "); String game = br.readLine();
+                        if (cek_game(game) == true){
+                            System.out.print("Masukkan Mata Uang Game        : "); String mataUang = br.readLine();
+                            while (loop){
+                                System.out.print("Masukkan Jumlah Variasi Top UP : "); int jenis_topup = Integer.parseInt(br.readLine());
+                                System.out.print("Masukkan Harga Variasi Top UP  : Rp"); int harga_topup = Integer.parseInt(br.readLine());
+                                jenis.add(jenis_topup);
+                                jenis.add(harga_topup);
+                                while (true){
+                                    System.out.print("\nTambah Variasi Top Up Lagi [Y/N] ? "); String ulang = br.readLine();
+                                    if (ulang.equalsIgnoreCase("n") || ulang.equalsIgnoreCase("N")){
+                                        ListGame game_baru = new ListGame(game, mataUang, jenis);
+                                        dataGame.add(game_baru);
+                                        System.out.print("\nData Berhasil Ditambahkan! Tekan ENTER Untuk Melanjutkan..."); gtc = br.readLine();
+                                        loop = false;
+                                        break;
+                                    } else if (ulang.equalsIgnoreCase("y") || ulang.equalsIgnoreCase("Y")){
+                                        System.out.println("");
+                                        break;
+                                    } else {
+                                        System.out.println("\nInput Anda Salah! Silahkan Input Ulang");
+                                    }
+                                }
                             }
+                            break;
+                        } else {
+                            System.out.print("\nNama Game Sudah Ada, Silahkan input Yang Lain"); gtc = br.readLine();
                         }
                     }
                     break;
@@ -142,13 +159,20 @@ public class Main {
                                     System.out.print("Masukkan Pilihan Menu >> "); pilih = br.readLine();
                                     switch(pilih){
                                         case "1":
-                                        cls();
-                                        System.out.println("===================================================");
-                                        System.out.println("          >>    Edit Data Nama Game    <<          ");
-                                        System.out.println("===================================================");
-                                        dataGame.get(i).display();
-                                        System.out.print("Masukkan Nama Game Yang Baru : "); game_edit = br.readLine();
-                                        dataGame.get(i).edit_data(game_edit, 0, data_edit, 1);
+                                        while (true){
+                                            cls();
+                                            System.out.println("===================================================");
+                                            System.out.println("          >>    Edit Data Nama Game    <<          ");
+                                            System.out.println("===================================================");
+                                            dataGame.get(i).display();
+                                            System.out.print("Masukkan Nama Game Yang Baru : "); game_edit = br.readLine();
+                                            if (cek_game(game_edit) == true){
+                                                dataGame.get(i).edit_data(game_edit, 0, data_edit, 1);
+                                                break;
+                                            } else {
+                                                System.out.print("\nNama Game Telah Digunakan, Silahkan Gunakan Nama Yang Lain..."); gtc = br.readLine();
+                                            }
+                                        }
                                         break;
                                     case "2":
                                         cls();
@@ -168,29 +192,36 @@ public class Main {
                                         }
                                         break;
                                     case "3":
-                                        cls();
-                                        System.out.println("===================================================");
-                                        System.out.println("     >>    Edit Semua Data Top Up Game     <<      ");
-                                        System.out.println("===================================================");
-                                        dataGame.get(i).display();
-                                        System.out.print("Masukkan Nama Game Yang Baru      : "); game = br.readLine();
-                                        while (edit_variasi){
-                                            System.out.print("Masukkan Variasi Top Up Yang Baru : "); variasi_edit = Integer.parseInt(br.readLine());
-                                            System.out.print("Masukkan Harga Top Up Yang Baru   : Rp"); harga_edit = Integer.parseInt(br.readLine());
-                                            data_edit.add(variasi_edit);
-                                            data_edit.add(harga_edit);
-                                            while (true){
-                                                System.out.print("\nTambah Variasi Top Up Lagi [Y/N] ? "); String ulang = br.readLine();
-                                                if (ulang.equalsIgnoreCase("n") || ulang.equalsIgnoreCase("N")){
-                                                    dataGame.get(i).edit_data(game, 0, data_edit, 3);
-                                                    edit_variasi = false;
-                                                    break;
-                                                } else if (ulang.equalsIgnoreCase("y") || ulang.equalsIgnoreCase("Y")){
-                                                    System.out.println("");
-                                                    break;
-                                                } else {
-                                                    System.out.println("\nInput Anda Salah! Silahkan Input Ulang");
+                                        while (true){
+                                            cls();
+                                            System.out.println("===================================================");
+                                            System.out.println("     >>    Edit Semua Data Top Up Game     <<      ");
+                                            System.out.println("===================================================");
+                                            dataGame.get(i).display();
+                                            System.out.print("Masukkan Nama Game Yang Baru      : "); String game = br.readLine();
+                                            if (cek_game(game) == true){
+                                                while (edit_variasi){
+                                                    System.out.print("Masukkan Variasi Top Up Yang Baru : "); variasi_edit = Integer.parseInt(br.readLine());
+                                                    System.out.print("Masukkan Harga Top Up Yang Baru   : Rp"); harga_edit = Integer.parseInt(br.readLine());
+                                                    data_edit.add(variasi_edit);
+                                                    data_edit.add(harga_edit);
+                                                    while (true){
+                                                        System.out.print("\nTambah Variasi Top Up Lagi [Y/N] ? "); String ulang = br.readLine();
+                                                        if (ulang.equalsIgnoreCase("n") || ulang.equalsIgnoreCase("N")){
+                                                            dataGame.get(i).edit_data(game, 0, data_edit, 3);
+                                                            edit_variasi = false;
+                                                            break;
+                                                        } else if (ulang.equalsIgnoreCase("y") || ulang.equalsIgnoreCase("Y")){
+                                                            System.out.println("");
+                                                            break;
+                                                        } else {
+                                                            System.out.println("\nInput Anda Salah! Silahkan Input Ulang");
+                                                        }
+                                                    }
                                                 }
+                                                break;
+                                            } else {
+                                                System.out.print("\nNama Game Telah Digunakan, Silahkan Gunakan Nama Yang Lain..."); gtc = br.readLine();
                                             }
                                         }
                                         break;
@@ -280,7 +311,7 @@ public class Main {
                         System.out.println("|                             ~~~~~>>>     Data Riwayat Transaksi Top Up Udin.TopUp     <<<~~~~~                                 |");
                         System.out.println("==================================================================================================================================");
                         System.out.println("| No. |       Jenis Game       |    ID Akun    |  Nickname Akun  |  Jumlah Top Up  |   Total Harga   |      Waktu Transaksi      |");
-                        System.out.println("----------------------------------------------------------------------------------------------------------------------------------");
+                        System.out.println("==================================================================================================================================");
                         for (int i = 0 ; i < dataPesanan.size() ; i++){
                             dataPesanan.get(i).display(i);
                         }
@@ -424,6 +455,7 @@ public class Main {
             }
         }
     }
+
     public static void main(String[] args) throws IOException {
         // data default biar otomatis ada biar gacape input trus
         int [] fifa = {150, 16000, 500, 49000, 1050, 79000, 2200, 159000, 5750, 399000, 12000, 799000};
@@ -439,8 +471,6 @@ public class Main {
         boolean menu = true;
         while (menu){
             cls();
-            int a = 5/2;
-            System.out.println(a);
             System.out.println("===================================================");
             System.out.println("    >>  Selamat Datang Di Sistem Udin.TopUp  <<    ");
             System.out.println("===================================================");
