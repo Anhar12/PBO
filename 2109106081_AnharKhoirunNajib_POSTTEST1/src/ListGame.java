@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class ListGame {
     // deklarasi fieldnya
-    String Game, mataUang;
-    ArrayList<ArrayList<Integer>> JenisGame = new ArrayList<>();
+    private String Game, mataUang;
+    private ArrayList<ArrayList<Integer>> JenisGame = new ArrayList<>();
 
     Scanner input = new Scanner(System.in);
 
@@ -44,7 +44,7 @@ public class ListGame {
         System.out.println("  [" + (i+1) + "]\t" + this.Game);
     }
 
-    // cari nama game
+    // getter nama game
     String get_game(){
         return Game;
     }
@@ -69,17 +69,17 @@ public class ListGame {
         return 0;
     }
 
-    // cari harganya
+    // getter harga top up
     int get_harga(int idx){
         return JenisGame.get(idx).get(1);
     }
 
-    // cari mata uang gamenya
+    // getter mata uang gamenya
     public String get_mataUang(){
         return mataUang;
     }
 
-    // buat edit data
+    // setter buat edit data
     void edit_data(String game, int idx, ArrayList<Integer> jenis, int pilih){
         if (pilih == 1){
             this.Game = game;
