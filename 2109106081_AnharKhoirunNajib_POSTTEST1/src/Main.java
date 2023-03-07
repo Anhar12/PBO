@@ -48,7 +48,7 @@ public class Main {
     // disini emg gaada getch kah? sementara pake ini jdi pengganti getch
     static public String gtc;
 
-    // cek ada game yang sama atau 
+    // cek game yang sama
     static boolean cek_game(String game){
         for (int i = 0 ; i < dataGame.size() ; i++){
             if (dataGame.get(i).get_game().equals(game)){
