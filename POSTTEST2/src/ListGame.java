@@ -9,7 +9,7 @@ public class ListGame {
     Scanner input = new Scanner(System.in);
     
     // constructor 
-    protected ListGame (String game, String matauang, ArrayList<Integer> jenis){
+    public ListGame (String game, String matauang, ArrayList<Integer> jenis){
         this.Game = game;
         this.mataUang = matauang;
         for (int i = 0 ; i < jenis.size() ; i+=2){
