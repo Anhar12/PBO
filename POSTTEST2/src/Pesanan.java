@@ -4,7 +4,7 @@ public class Pesanan {
     private String Game, ID, Nickname, Waktu, mataUang;
     
     // constructor buat nambah data
-    Pesanan (int jumlah_TopUP, int total, String game, String id, String nickname, String waktu, String mata_uang){
+    public Pesanan (int jumlah_TopUP, int total, String game, String id, String nickname, String waktu, String mata_uang){
         this.Game = game;
         this.ID = id;
         this.Nickname = nickname;
